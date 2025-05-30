@@ -8,8 +8,6 @@ type Person = {
   image: string,
 }
 
-
-//MILESTONE 2
 type Actress = Person & {
   most_famous_movies: [string, string, string],
   awards: string,
@@ -19,13 +17,34 @@ type Actress = Person & {
 //MILESTONE 3
 
 
+//MILESTONE 2
+
+async function getActress(id: number): Promise<Actress | null> {
+
+  try {
+
+    const url = "http://localhost:3333/actresses/" + id
+    const response = await fetch(url)
+    if (!response.ok) {
+      throw new Error("chiamata fetch fallita")
+    }
+    const dataJson = await response.json()
+    return dataJson
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+getActress(1).then(obj => console.log(obj))
+
 //MILESTONE 4
 
 
 //MILESTONE 5
 
 
-//BONUS 1 
+//BONUS 1
 
 
 //BONUS 2
