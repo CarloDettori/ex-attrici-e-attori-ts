@@ -73,6 +73,7 @@ Utilizza gli Utility Types:
 
 
 🎯 BONUS 2
+
 Crea un tipo Actor, che estende Person con le seguenti differenze rispetto ad Actress:
     -known_for: una tuple di 3 stringhe
     -awards: array di una o due stringhe
@@ -84,5 +85,6 @@ Implementa anche le versioni getActor, getAllActors, getActors, createActor, upd
 
 
 🎯 BONUS 3
+
 Crea la funzione createRandomCouple che usa getAllActresses e getAllActors per restituire un’array che ha sempre due elementi:
 al primo posto una Actress casuale e al secondo posto un Actor casuale.
