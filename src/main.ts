@@ -22,7 +22,7 @@ type Actress = Person & {
 
 
 //MILESTONE 3
-/*
+
 function isActress(data: unknown): data is Actress {
   if (
     data && typeof data === "object" &&
@@ -80,8 +80,8 @@ async function getActress(id: number): Promise<Actress | null> {
 
 }
 
-getActress(2).then(obj => console.log(obj))
-*/
+//getActress(2).then(obj => console.log(obj))
+
 
 
 //MILESTONE 4
@@ -201,7 +201,7 @@ function areActresses<T>(arr: T[]) {
 
 }
 
-async function getAllActresses(): Promise<number[] | null> {
+async function getAllActressesId(): Promise<number[] | null> {
   try {
 
     const url = "http://localhost:3333/actresses"
@@ -229,7 +229,13 @@ async function getAllActresses(): Promise<number[] | null> {
 
 }
 
-getAllActresses().then(obj => console.log(obj))
+
+
+
+getAllActressesId().then(obj => obj?.forEach((id) => {
+  getActress(id).then(obj => console.log(obj))
+}))
+
 
 
 
