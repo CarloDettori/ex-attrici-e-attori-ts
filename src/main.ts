@@ -201,7 +201,7 @@ function areActresses<T>(arr: T[]) {
 
 }
 
-async function getAllActresses(): Promise<Actress | null> {
+async function getAllActresses(): Promise<number[] | null> {
   try {
 
     const url = "http://localhost:3333/actresses"
@@ -212,7 +212,7 @@ async function getAllActresses(): Promise<Actress | null> {
     const data = await response.json()
 
     if (!areActresses(data)) { throw new Error("formato dati non valido") }
-    const ids: number[] = data.map(actr => actr.id)
+    const ids: number[] = data.map((actr: object) => actr.id)
     //console.log(data)
     return ids
 
