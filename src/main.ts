@@ -89,7 +89,7 @@ async function getActress(id: number): Promise<Actress | null> {
 /*
 function areActresses<T>(arr: T[]) {
 
-  const isAlright: boolean[] = []
+  const AllRight: boolean[] = []
 
   arr.forEach((actress) => {
 
@@ -115,15 +115,15 @@ function areActresses<T>(arr: T[]) {
 
     ) {
 
-      isAlright.push(true)
+      AllRight.push(true)
 
     } else {
 
-      isAlright.push(false)
+      AllRight.push(false)
     }
 
   })
-  return isAlright.every(check => check === true)
+  return AllRight.every(check => check === true)
 
 }
 
@@ -163,60 +163,52 @@ getAllActresses().then(obj => console.log(obj))
 
 function areActresses<T>(arr: T[]) {
 
-  const isAlright: boolean[] = []
+  const AllRight: boolean[] = []
 
   arr.forEach((actress) => {
 
     if (
 
       actress && typeof actress === "object" &&
-
       "id" in actress && typeof actress.id === "number" &&
-
       "name" in actress && typeof actress.name === "string" &&
-
       "birth_year" in actress && typeof actress.birth_year === "number" &&
-
       "biography" in actress && typeof actress.biography === "string" &&
-
       "image" in actress && typeof actress.image === "string" &&
-
       "most_famous_movies" in actress && Array.isArray(actress.most_famous_movies) && actress.most_famous_movies.length === 3 && actress.most_famous_movies.every((movie: string) => typeof movie === "string") &&
-
       "awards" in actress && typeof actress.awards === "string" &&
-
       "nationality" in actress && typeof actress.nationality === "string"
 
     ) {
 
-      isAlright.push(true)
+      AllRight.push(true)
 
     } else {
 
-      isAlright.push(false)
+      AllRight.push(false)
+
     }
 
   })
-  return isAlright.every(check => check === true)
+
+  return AllRight.every(check => check === true)
 
 }
 
-async function getAllActressesId(): Promise<number[] | null> {
+async function getAllActressesIds(): Promise<number[] | null> {
+
   try {
 
     const url = "http://localhost:3333/actresses"
     const response = await fetch(url)
     //console.log(response)
     if (!response.ok) { throw new Error("chiamata fetch fallita") }
-
     const data = await response.json()
-
     if (!areActresses(data)) { throw new Error("formato dati non valido") }
-    const ids: number[] = data.map((actr: object) => actr.id)
+    const ids: number[] = (data as Actress[]).map(actr => actr.id)
     //console.log(data)
+
     return ids
-
-
 
   } catch (error) {
 
@@ -231,13 +223,33 @@ async function getAllActressesId(): Promise<number[] | null> {
 
 
 
+getAllActressesIds().then(actressesIds => {
 
-getAllActressesId().then(obj => obj?.forEach((id) => {
-  getActress(id).then(obj => console.log(obj))
-}))
+  const promises: object[] = []
 
+  actressesIds?.forEach((id) => promises.push(new Promise((resolve, reject) => {
 
+    getActress(id).then(actress => {
 
+      if (actress) {
+        resolve(actress)
+      } else {
+        reject("attrice sconossciuta")
+      }
+
+    })
+
+  })))
+
+  Promise.all(promises)
+    .then((results) => {
+      console.log(results)
+    })
+    .catch((error) => {
+      console.error(error)
+    })
+
+})
 
 //BONUS 1
 
