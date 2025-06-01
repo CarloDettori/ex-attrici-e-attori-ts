@@ -25,22 +25,15 @@ type Actress = Person & {
 
 function isActress(data: unknown): data is Actress {
   if (
+
     data && typeof data === "object" &&
-
     "id" in data && typeof data.id === "number" &&
-
     "name" in data && typeof data.name === "string" &&
-
     "birth_year" in data && typeof data.birth_year === "number" &&
-
     "biography" in data && typeof data.biography === "string" &&
-
     "image" in data && typeof data.image === "string" &&
-
     "most_famous_movies" in data && Array.isArray(data.most_famous_movies) && data.most_famous_movies.length === 3 && data.most_famous_movies.every((movie: string) => typeof movie === "string") &&
-
     "awards" in data && typeof data.awards === "string" &&
-
     "nationality" in data && typeof data.nationality === "string"
 
   ) {
@@ -96,21 +89,13 @@ function areActresses<T>(arr: T[]) {
     if (
 
       actress && typeof actress === "object" &&
-
       "id" in actress && typeof actress.id === "number" &&
-
       "name" in actress && typeof actress.name === "string" &&
-
       "birth_year" in actress && typeof actress.birth_year === "number" &&
-
       "biography" in actress && typeof actress.biography === "string" &&
-
       "image" in actress && typeof actress.image === "string" &&
-
       "most_famous_movies" in actress && Array.isArray(actress.most_famous_movies) && actress.most_famous_movies.length === 3 && actress.most_famous_movies.every((movie: string) => typeof movie === "string") &&
-
       "awards" in actress && typeof actress.awards === "string" &&
-
       "nationality" in actress && typeof actress.nationality === "string"
 
     ) {
@@ -123,6 +108,7 @@ function areActresses<T>(arr: T[]) {
     }
 
   })
+
   return AllRight.every(check => check === true)
 
 }
@@ -234,7 +220,7 @@ getAllActressesIds().then(actressesIds => {
       if (actress) {
         resolve(actress)
       } else {
-        reject("attrice sconossciuta")
+        reject("attrice sconosciuta")
       }
 
     })
@@ -243,7 +229,7 @@ getAllActressesIds().then(actressesIds => {
 
   Promise.all(promises)
     .then((results) => {
-      console.log(results)
+      console.log(...results)
     })
     .catch((error) => {
       console.error(error)
